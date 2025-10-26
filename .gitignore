@@ -22,13 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-# Dependencies
-/node_modules
-
-# Build files
-/dist
-/build
-
-# Vite specific
-.vite
-.DS_Store
