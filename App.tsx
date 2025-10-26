@@ -419,7 +419,7 @@ const App: FC = () => {
 
             </main>
 
-            <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-16 glass-panel rounded-xl p-8 text-center md:text-left">
+            <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="relative mt-16 glass-panel rounded-xl p-8 text-center md:text-left">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
                         <h4 className="font-semibold mb-3 text-orange-400">Bhook Busters</h4>
@@ -442,6 +442,7 @@ const App: FC = () => {
                         </div>
                     </div>
                 </div>
+                <span className="absolute right-8 bottom-4 text-gray-500 dark:text-gray-400 text-xs italic">By nbl.</span>
             </motion.footer>
         </div>
     );
