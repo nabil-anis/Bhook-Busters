@@ -444,6 +444,7 @@ const App: FC = () => {
   </div>
 </MotionSection>
 
+            </main>
 
             <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-16 glass-panel rounded-xl p-8 text-center md:text-left">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
