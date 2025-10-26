@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Bhookbusters — Campus Lunchbox</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #F97316; /* orange-500 */
+      --accent-2: #FB923C; /* orange-400 */
+      --bg-dark: #18181b; /* zinc-900 (Charcoal) */
+      --bg-light: #FEF3C7; /* amber-100 */
+      --panel-dark: rgba(39, 39, 42, 0.5); /* zinc-800/50 */
+      --panel-light: rgba(255, 255, 255, 0.5);
+      --glass-blur: 12px;
+      --radius: 14px;
+      --max-w: 1280px;
+      --ease: cubic-bezier(.2, .9, .3, 1);
+      --text-light: #f4f4f5; /* zinc-100 */
+      --text-dark: #1f2937; /* gray-800 */
+      --muted-dark: #71717a; /* zinc-500 */
+      --muted-light: #4b5563; /* gray-600 */
+    }
+
+    body {
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 360ms var(--ease), color 240ms var(--ease);
+      line-height: 1.5;
+    }
+    
+    body[data-theme="dark"] {
+        background: var(--bg-dark);
+        color: var(--text-light);
+    }
+
+    body[data-theme="light"] {
+        background: var(--bg-light);
+        color: var(--text-dark);
+    }
+    
+    .btn {
+      border-radius: 8px;
+      padding: 10px 18px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 160ms var(--ease), box-shadow 160ms var(--ease);
+    }
+    .btn:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: inherit;
+      border: 1px solid;
+    }
+     body[data-theme="dark"] .btn-ghost { border-color: rgba(255, 255, 255, 0.15); }
+     body[data-theme="light"] .btn-ghost { border-color: rgba(0,0,0,0.15); }
+
+    .glass-panel {
+        backdrop-filter: blur(var(--glass-blur));
+        border: 1px solid;
+    }
+    body[data-theme="dark"] .glass-panel {
+        background: var(--panel-dark);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+    body[data-theme="light"] .glass-panel {
+        background: var(--panel-light);
+        border-color: rgba(0,0,0,0.05);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid;
+      color: inherit;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+    body[data-theme="dark"] .form-input {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    body[data-theme="light"] .form-input {
+        background: rgba(0,0,0,0.03);
+        border-color: rgba(0,0,0,0.1);
+    }
+     .form-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
+     }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "vite": "https://aistudiocdn.com/vite@^7.1.12",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

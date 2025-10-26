@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Bhook Busters — Campus Lunchbox",
+  "description": "A student-run lunchbox service for campus, featuring a daily menu of homemade dishes. Includes a password-protected admin panel for the chef to update the menu in real-time, with all data saved locally in the browser.",
+  "requestFramePermissions": []
+}
