@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Bhook Busters 🍱  
 
-# Run and deploy your AI Studio app
+Bhook Busters is a student-run lunchbox service built to rescue hungry souls from cafeteria disappointment.  
+Our mission is simple: serve **fresh, affordable, home-style meals** to students who crave real food — not just calories.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/drive/1UZt04DZ-AkxuatiluxiQ6NBknHMpgKwN
+## 🚀 Overview  
+The **Bhook Busters** web app provides an easy and reliable way for students to order daily lunchboxes online.  
+Designed with simplicity and speed in mind, it lets users view the daily menu, place an order, and contact the team instantly — all from one clean interface.  
 
-## Run Locally
+Built and deployed with **Vercel**, this project represents a blend of student creativity, practicality, and entrepreneurial spirit.
 
-**Prerequisites:**  Node.js
+---
 
+## ✨ Features  
+- 🥗 **Daily Specials:** Fresh menus updated regularly.  
+- 💬 **WhatsApp Ordering:** One-tap ordering experience for students on the go.  
+- 📍 **Campus-Focused:** Designed for university communities and hostels.  
+- 💸 **Budget-Friendly:** Meals that fill you up, not empty your wallet.  
+- 🌐 **Responsive Design:** Works beautifully on phones, tablets, and laptops.  
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+
+## 🛠️ Tech Stack  
+- **Frontend:** Next.js / React  
+- **Styling:** Tailwind CSS  
+- **Deployment:** Vercel  
+- **Utilities:** Framer Motion, Lucide Icons  
