@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useRef, FC } from 'react';
 // FIX: Import `Variants` type from framer-motion to fix type inference issues.
 import { motion, AnimatePresence, Variants } from 'framer-motion';
@@ -8,8 +7,8 @@ import type { MenuItem } from './types';
 const LS_KEYS = {
     MENU: 'bb_menu_v7',
     THEME: 'bb_theme_v7',
-    ADMIN_PASS: 'bb_admin_pass_v8',
 };
+const ADMIN_PASSWORD = 'i~sha';
 
 const DEMO_MENU: MenuItem[] = [
   { id: 'm' + Math.random().toString(36).slice(2,9), name: 'Spaghetti Aglio e Olio', price: 140, desc: 'Light, garlicky, with cherry tomatoes and a hint of chili.', img: 'https://images.unsplash.com/photo-1621996346565-e30646e20fb0?q=80&w=600&auto=format&fit=crop' },
@@ -21,12 +20,6 @@ const WHATSAPP_LINK = 'https://wa.me/923282681551';
 
 // HELPER FUNCTIONS
 const genId = () => 'm' + Math.random().toString(36).slice(2, 9);
-const generatePassword = (len = 8) => {
-    const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
-    let out = '';
-    for (let i = 0; i < len; i++) out += chars.charAt(Math.floor(Math.random() * chars.length));
-    return out;
-};
 const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -115,14 +108,12 @@ const Toast: FC<{ toast: { message: string } | null }> = ({ toast }) => {
     );
 };
 
-const AdminModal: FC<any> = ({ isOpen, isUnlocked, onClose, onUnlock, onAddDish, onChangePassword, showToast }) => {
+const AdminModal: FC<any> = ({ isOpen, isUnlocked, onClose, onUnlock, onAddDish, showToast }) => {
     const [password, setPassword] = useState('');
     const [dishName, setDishName] = useState('');
     const [dishPrice, setDishPrice] = useState('');
     const [dishDesc, setDishDesc] = useState('');
     const [dishImg, setDishImg] = useState<File | null>(null);
-    const [currentPass, setCurrentPass] = useState('');
-    const [newPass, setNewPass] = useState('');
     
     const handleUnlock = () => onUnlock(password);
     
@@ -135,12 +126,6 @@ const AdminModal: FC<any> = ({ isOpen, isUnlocked, onClose, onUnlock, onAddDish,
         setDishName(''); setDishPrice(''); setDishDesc(''); setDishImg(null);
     };
 
-    const handleChangePassword = () => {
-        if (onChangePassword(currentPass, newPass)) {
-            setCurrentPass(''); setNewPass('');
-        }
-    };
-
     return (
         <AnimatePresence>
             {isOpen && (
@@ -151,22 +136,23 @@ const AdminModal: FC<any> = ({ isOpen, isUnlocked, onClose, onUnlock, onAddDish,
                     <motion.div 
                         initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
                         transition={{ ease: "easeInOut", duration: 0.2 }}
-                        className="w-full max-w-2xl p-6 rounded-2xl shadow-2xl glass-panel"
+                        className="w-full max-w-lg p-6 rounded-2xl shadow-2xl glass-panel max-h-[90vh] overflow-y-auto"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h3 className="text-2xl font-bold text-orange-400">Chef’s Key — Admin</h3>
-                        <p className="text-sm text-zinc-500 dark:text-zinc-500 mb-6">Unlock to edit today's menu.</p>
-
                         {!isUnlocked ? (
-                            <div className="space-y-4">
-                                <input
-                                    type="password" placeholder="Enter password"
-                                    value={password} onChange={(e) => setPassword(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && handleUnlock()}
-                                    className="form-input"
-                                />
-                                <div className="flex justify-end gap-3"><button onClick={onClose} className="btn btn-ghost">Close</button><button onClick={handleUnlock} className="btn btn-primary">Unlock</button></div>
-                            </div>
+                            <>
+                                <h3 className="text-2xl font-bold text-orange-400">Chef’s Key — Admin</h3>
+                                <p className="text-sm text-zinc-500 dark:text-zinc-500 mb-6">Unlock to edit today's menu.</p>
+                                <div className="space-y-4">
+                                    <input
+                                        type="password" placeholder="Enter password"
+                                        value={password} onChange={(e) => setPassword(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' && handleUnlock()}
+                                        className="form-input"
+                                    />
+                                    <div className="flex justify-end gap-3"><button onClick={onClose} className="btn btn-ghost">Close</button><button onClick={handleUnlock} className="btn btn-primary">Unlock</button></div>
+                                </div>
+                            </>
                         ) : (
                             <div className="space-y-6">
                                 <div>
@@ -179,14 +165,6 @@ const AdminModal: FC<any> = ({ isOpen, isUnlocked, onClose, onUnlock, onAddDish,
                                     </div>
                                     <div className="flex justify-end mt-4"><button onClick={handleAddDish} className="btn btn-primary">Add Dish</button></div>
                                 </div>
-                                <div className="border-t border-white/10 pt-6">
-                                    <h4 className="font-semibold text-orange-400 mb-2">Change Password</h4>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <input value={currentPass} onChange={e => setCurrentPass(e.target.value)} type="password" placeholder="Current password" className="form-input" />
-                                        <input value={newPass} onChange={e => setNewPass(e.target.value)} type="password" placeholder="New password" className="form-input" />
-                                    </div>
-                                    <div className="flex justify-end mt-4"><button onClick={handleChangePassword} className="btn btn-ghost">Change</button></div>
-                                </div>
                                 <div className="flex justify-end gap-3 border-t border-white/10 pt-6"><button onClick={onClose} className="btn btn-ghost">Close</button></div>
                             </div>
                         )}
@@ -197,7 +175,7 @@ const AdminModal: FC<any> = ({ isOpen, isUnlocked, onClose, onUnlock, onAddDish,
     );
 };
 
-const MenuItemRow: FC<any> = ({ item, isUnlocked, onUpdate, onDelete }) => {
+const MenuItemRow: FC<any> = ({ item, isUnlocked, onDelete }) => {
     return (
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl mb-3 glass-panel hover:border-white/20 dark:hover:border-white/20 hover:border-black/20 transition-all duration-300">
             <img src={item.img || `https://picsum.photos/seed/${item.id}/400/300`} alt={item.name} className="w-full sm:w-28 h-40 sm:h-24 object-cover rounded-lg flex-shrink-0"/>
@@ -231,17 +209,11 @@ const MotionSection: FC<any> = ({ children, className, ...props }) => (
 const App: FC = () => {
     const [menu, setMenu] = useLocalStorage<MenuItem[]>(LS_KEYS.MENU, []);
     const [theme, setTheme] = useLocalStorage<'light' | 'dark'>(LS_KEYS.THEME, 'dark');
-    const [adminPassword, setAdminPassword] = useLocalStorage<string>(LS_KEYS.ADMIN_PASS, '');
     const [isUnlocked, setIsUnlocked] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { toast, showToast } = useToast();
 
     useEffect(() => {
-        if (!adminPassword) {
-            const newPass = 'i~sha';
-            setAdminPassword(newPass);
-            showToast(`Admin pass: ${newPass}`, 7000);
-        }
         if (menu.length === 0) {
             setMenu(DEMO_MENU);
             showToast("Demo loaded. Use 'Chef's Key' to edit.");
@@ -254,10 +226,10 @@ const App: FC = () => {
     }, [theme]);
     
     const handleUnlock = (password: string) => {
-        if (password === adminPassword) { setIsUnlocked(true); showToast('Kitchen unlocked!'); return true; }
+        if (password === ADMIN_PASSWORD) { setIsUnlocked(true); showToast('Kitchen unlocked!'); return true; }
         showToast('Incorrect password.'); return false;
     };
-
+    
     const handleAddDish = async (name: string, price: number, desc: string, imgFile: File | null) => {
         let img = '';
         if (imgFile) {
@@ -280,19 +252,20 @@ const App: FC = () => {
         }
     };
     
-    const handleChangePassword = (current: string, newPass: string) => {
-        if (current !== adminPassword) { showToast('Current password incorrect.'); return false; }
-        if (newPass.length < 6) { showToast('New password too short.'); return false; }
-        setAdminPassword(newPass); showToast('Password changed!'); return true;
-    };
-
     const openLink = (url: string) => window.open(url, '_blank');
     const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
     return (
         <div className="max-w-[var(--max-w)] mx-auto p-4 md:p-6">
             <Toast toast={toast} />
-            <AdminModal isOpen={isModalOpen} isUnlocked={isUnlocked} onClose={() => setIsModalOpen(false)} onUnlock={handleUnlock} onAddDish={handleAddDish} onChangePassword={handleChangePassword} showToast={showToast} />
+            <AdminModal 
+                isOpen={isModalOpen} 
+                isUnlocked={isUnlocked} 
+                onClose={() => setIsModalOpen(false)} 
+                onUnlock={handleUnlock} 
+                onAddDish={handleAddDish} 
+                showToast={showToast} 
+            />
 
             <motion.header 
                 initial={{ y: -100 }} animate={{ y: 0 }} transition={{ type: 'spring', stiffness: 100 }}
